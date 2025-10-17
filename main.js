@@ -19,12 +19,19 @@ let namaPemain = "";
 // ===== Tombol Mulai =====
 document.getElementById("mulaiBtn").addEventListener("click", () => {
   const inputNama = document.getElementById("namaPemain").value.trim();
-  if (inputNama === "") { alert("Masukkan nama kamu!"); return; }
+  if (inputNama === "") {
+    alert("Masukkan nama kamu dulu ya!");
+    return;
+  }
   namaPemain = inputNama;
 
   // Simpan nama ke Firebase
-  db.ref("pemain").push({ nama: namaPemain, waktu: new Date().toISOString() });
+  db.ref("pemain").push({
+    nama: namaPemain,
+    waktu: new Date().toLocaleString("id-ID")
+  });
 
+  // Sembunyikan form nama dan tampilkan kuis
   document.getElementById("nama-container").style.display = "none";
   document.getElementById("kuis-container").style.display = "block";
   tampilSoal();
@@ -33,28 +40,30 @@ document.getElementById("mulaiBtn").addEventListener("click", () => {
 // ===== Tampilkan Soal =====
 function tampilSoal() {
   const soalSekarang = soal[indexSoal];
-  document.getElementById("pertanyaan").textContent = soalSekarang.q; // disesuaikan
+  document.getElementById("pertanyaan").textContent = soalSekarang.q;
 
   const pilihanContainer = document.getElementById("pilihan-container");
   pilihanContainer.innerHTML = "";
 
-  soalSekarang.options.forEach(pil => { // disesuaikan
+  soalSekarang.options.forEach((pil) => {
     const btn = document.createElement("button");
     btn.textContent = pil;
     btn.onclick = () => cekJawaban(pil);
     pilihanContainer.appendChild(btn);
   });
 
-  document.getElementById("skor").textContent = `Skor: ${skor}`;
+  document.getElementById("skor").textContent = `Score: ${skor}`;
 }
 
 // ===== Cek Jawaban =====
 function cekJawaban(pilihan) {
-  if (pilihan === soal[indexSoal].answer) skor++; // disesuaikan
+  if (pilihan === soal[indexSoal].answer) {
+    skor++;
+  }
   lanjutSoal();
 }
 
-// ===== Tombol Lewati =====
+// ===== Tombol Lewati dan Berikutnya =====
 document.getElementById("lewatiBtn").addEventListener("click", lanjutSoal);
 document.getElementById("nextBtn").addEventListener("click", lanjutSoal);
 
@@ -64,13 +73,14 @@ function lanjutSoal() {
     tampilSoal();
   } else {
     document.getElementById("kuis-container").innerHTML = `
-      <h2>Skor kamu: ${skor} / ${soal.length}</h2>
-      <p>Terima kasih sudah bermain, ${namaPemain}!</p>
+      <h2>🎉 Great job, ${namaPemain}!</h2>
+      <p>Your final score is: <b>${skor} / ${soal.length}</b></p>
+      <button onclick="location.reload()">Play Again</button>
     `;
   }
 }
 
-// ===== Tombol Donasi =====
+// ===== Popup Donasi =====
 document.getElementById("donasiBtn").addEventListener("click", () => {
   document.getElementById("popupDonasi").style.display = "flex";
 });
