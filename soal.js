@@ -50,8 +50,8 @@ const soal = [
   { q: "Which one means 'angry'?", options: ["Happy", "Mad", "Excited", "Calm"], answer: "Mad" },
   { q: "Choose the correct form: 'She ___ reading a book now.'", options: ["is", "are", "am", "be"], answer: "is" },
   { q: "My mom cooks in the ___", options: ["bedroom", "kitchen", "garage", "bathroom"], answer: "kitchen" },
-  { q: "We sleep at ___", options: ["day", "night", "morning", "noon"], answer: "night" }
-  {q: "I usually go to school ______ 7 a.m.", options: ["on", "at", "in", "by"], answer: "at"},
+  { q: "We sleep at ___", options: ["day", "night", "morning", "noon"], answer: "night" },
+  { q: "I usually go to school ______ 7 a.m.", options: ["on", "at", "in", "by"], answer: "at" },
   {q: "He _______ TV every night.", options: ["watch", "watching", "watches", "watched"], answer: "watches"},
   {q: "My sister can play the ______.", options: ["guitar", "sing", "dance", "game"], answer: "guitar"},
   {q: "How many days are there in a week?", options: ["5", "6", "7", "8"], answer: "7"},
@@ -111,5 +111,6 @@ function shuffle(array) {
   }
 }
 shuffle(soal);
+
 
 
